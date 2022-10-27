@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: API-Gateway-service
+  name: api-gateway-service
 spec:
   selector:
-    app: API-Gateway-service
+    app: api-gateway-service
   ports:
   - protocol: "TCP"
     port: 8081
@@ -15,19 +15,19 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: API-Gateway-service
+  name: api-gateway-service
 spec:
   selector:
     matchLabels:
-      app: API-Gateway-service
+      app: api-gateway-service
   replicas: 3
   template:
     metadata:
       labels:
-        app: API-Gateway-service
+        app: api-gateway-service
     spec:
       containers:
-      - name: API-Gateway-service
+      - name: api-gateway-service
         image: chan29/api-gateway:v1
         imagePullPolicy: IfNotPresent
         ports:
