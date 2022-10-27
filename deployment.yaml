@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: API-Gateway-service
+spec:
+  selector:
+    app: API-Gateway-service
+  ports:
+  - protocol: "TCP"
+    port: 8081
+    targetPort: 80
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: API-Gateway-service
+spec:
+  selector:
+    matchLabels:
+      app: API-Gateway-service
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: API-Gateway-service
+    spec:
+      containers:
+      - name: API-Gateway-service
+        image: chan29/api-gateway:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
